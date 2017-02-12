@@ -22,5 +22,7 @@ node(NODE_LABEL) {
             image_tag = DOCKER_IMAGE_TAG
         }
         app.push image_tag
+
+        sh "docker run -i -e AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT} -e AZURE_STORAGE_ACCESS_KEY=${AZURE_STORAGE_ACCESS_KEY} -v \$(pwd):/project --entrypoint=python dokkur/azure-fileshare-sync -m src.swanager_sync /project/swanager.json ${AZURE_FILESHARE}/${SWANAGER_USERNAME}/${SWANAGER_APPLICATION}"
     }
 }
